@@ -58,19 +58,44 @@
   </p>
 
   <div class="projects-controls">
-    <label for="projectSearch">Search projects</label>
-    <input
-      type="text"
-      id="projectSearch"
-      placeholder="Search by title or technology"
-    />
-    <p id="searchStatus" class="search-status"></p>
-  </div>
+  <label for="projectSearch">Search projects</label>
+  <input
+    type="text"
+    id="projectSearch"
+    placeholder="Search by title or technology"
+  />
+
+  <label for="projectFilter">Filter by category</label>
+  <select id="projectFilter">
+    <option value="all">All</option>
+    <option value="java">Java</option>
+    <option value="javafx">JavaFX</option>
+    <option value="database">Database</option>
+  </select>
+
+  <label for="projectSort">Sort projects</label>
+  <select id="projectSort">
+    <option value="default">Default</option>
+    <option value="az">A–Z</option>
+    <option value="za">Z–A</option>
+  </select>
+
+  <p class="controls-help">
+    Use search, filter, and sort together to explore my projects.
+  </p>
+
+  <p id="searchStatus" class="search-status"></p>
+</div>
 
   <div class="projects-grid">
 
     <!-- Project 1 -->
-    <article class="project-card" data-search="facelite java javafx oop profile management friends">
+    <article
+  class="project-card"
+  data-search="facelite java javafx oop profile management friends"
+  data-category="java javafx"
+  data-title="FaceLite Application"
+>
       <img
         class="project-img"
         src="assets/images/FaceLite.png"
@@ -99,7 +124,12 @@
     </article>
 
     <!-- Project 2 -->
-    <article class="project-card" data-search="resource reserving system java javafx mysql mvc reservation login signup database">
+    <article
+  class="project-card"
+  data-search="resource reserving system java javafx mysql mvc reservation login signup database"
+  data-category="java javafx database"
+  data-title="Resource Reserving System"
+>
       <img
         class="project-img"
         src="assets/images/ResourceReservingSystem.png"

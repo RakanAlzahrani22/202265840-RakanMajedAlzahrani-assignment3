@@ -156,8 +156,13 @@ body {
 }
 
 .btn.outline {
-  border: 1px solid rgba(226, 232, 240, 0.25);
+  border: 1px solid rgba(226, 232, 240, 0.35);
   color: #e2e8f0;
+  background: transparent;
+}
+
+.btn.outline:hover {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .btn:hover {

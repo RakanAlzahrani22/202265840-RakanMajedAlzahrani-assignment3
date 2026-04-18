@@ -64,52 +64,63 @@ if (clearNameBtn && visitorGreeting) {
 
 
 // GitHub repositories loader
+// GitHub repositories loader
 const loadReposBtn = document.getElementById("loadReposBtn");
 const githubStatus = document.getElementById("githubStatus");
 const githubRepos = document.getElementById("githubRepos");
 
-if (loadReposBtn && githubStatus && githubRepos) {
-  loadReposBtn.addEventListener("click", function () {
-    githubStatus.textContent = "Loading repositories...";
-    githubRepos.innerHTML = "";
+function loadGitHubRepos() {
+  if (!githubStatus || !githubRepos) {
+    return;
+  }
 
-    fetch("https://api.github.com/users/RakanAlzahrani22/repos?sort=updated")
-      .then(function (response) {
-        if (!response.ok) {
-          throw new Error("Failed to fetch repositories.");
-        }
-        return response.json();
-      })
-      .then(function (repos) {
-        if (!Array.isArray(repos) || repos.length === 0) {
-          githubStatus.textContent = "No repositories found.";
-          return;
-        }
+  githubStatus.textContent = "Loading repositories...";
+  githubRepos.innerHTML = "";
 
-        githubStatus.textContent = `Loaded ${repos.length} repository(ies).`;
+  fetch("https://api.github.com/users/RakanAlzahrani22/repos?sort=updated")
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error("Failed to fetch repositories.");
+      }
+      return response.json();
+    })
+    .then(function (repos) {
+      if (!Array.isArray(repos) || repos.length === 0) {
+        githubStatus.textContent = "No repositories found.";
+        return;
+      }
 
-        repos.slice(0, 6).forEach(function (repo) {
-          const card = document.createElement("article");
-          card.className = "github-card";
+      githubStatus.textContent = `Loaded ${Math.min(repos.length, 6)} repository(ies).`;
 
-          card.innerHTML = `
-            <h3>${repo.name}</h3>
-            <p>${repo.description ? repo.description : "No description provided."}</p>
-            <div class="github-meta">
-              Language: ${repo.language ? repo.language : "Not specified"}
-            </div>
-            <a class="github-link" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">
-              View Repository
-            </a>
-          `;
+      repos.slice(0, 6).forEach(function (repo) {
+        const card = document.createElement("article");
+        card.className = "github-card";
 
-          githubRepos.appendChild(card);
-        });
-      })
-      .catch(function () {
-        githubStatus.textContent = "Failed to load GitHub repositories. Please try again later.";
+        card.innerHTML = `
+          <h3>${repo.name}</h3>
+          <p>${repo.description ? repo.description : "No description provided."}</p>
+          <div class="github-meta">
+            Language: ${repo.language ? repo.language : "Not specified"}
+          </div>
+          <a class="github-link" href="${repo.html_url}" target="_blank" rel="noopener noreferrer">
+            View Repository
+          </a>
+        `;
+
+        githubRepos.appendChild(card);
       });
-  });
+    })
+    .catch(function () {
+      githubStatus.textContent = "Failed to load GitHub repositories. Please try again later.";
+    });
+}
+
+if (loadReposBtn) {
+  loadReposBtn.addEventListener("click", loadGitHubRepos);
+}
+
+if (githubStatus && githubRepos) {
+  loadGitHubRepos();
 }
 
 

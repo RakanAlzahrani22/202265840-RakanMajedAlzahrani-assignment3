@@ -76,43 +76,68 @@ if (loadReposBtn && githubStatus && githubRepos) {
 
 
 
-// Project search filter
+// Project search, filter, and sort
 const projectSearch = document.getElementById("projectSearch");
-const projectCards = document.querySelectorAll(".project-card");
+const projectFilter = document.getElementById("projectFilter");
+const projectSort = document.getElementById("projectSort");
+const projectsGrid = document.querySelector(".projects-grid");
+const projectCards = Array.from(document.querySelectorAll(".project-card"));
 const searchStatus = document.getElementById("searchStatus");
 const emptyState = document.getElementById("emptyState");
 
-if (projectSearch) {
-  projectSearch.addEventListener("input", function () {
-    const query = projectSearch.value.trim().toLowerCase();
-    let visibleCount = 0;
+function updateProjects() {
+  const query = projectSearch.value.trim().toLowerCase();
+  const selectedCategory = projectFilter.value;
+  const selectedSort = projectSort.value;
 
-    projectCards.forEach(function (card) {
-  const searchableText = (card.dataset.search || "").toLowerCase();
-  const matches = searchableText.includes(query);
+  let visibleCount = 0;
 
-  if (matches) {
-    card.style.display = "";
-    visibleCount++;
-  } else {
-    card.style.display = "none";
-  }
-});
+  const updatedCards = [...projectCards].filter(function (card) {
+    const searchableText = (card.dataset.search || "").toLowerCase();
+    const categoryText = (card.dataset.category || "").toLowerCase();
 
-    if (query === "") {
-      searchStatus.textContent = "Showing all projects.";
-    } else {
-      searchStatus.textContent = `Found ${visibleCount} project(s).`;
-    }
+    const matchesSearch = searchableText.includes(query);
+    const matchesCategory =
+      selectedCategory === "all" || categoryText.includes(selectedCategory);
 
-    if (visibleCount === 0) {
-      emptyState.style.display = "block";
-    } else {
-      emptyState.style.display = "none";
-    }
+    return matchesSearch && matchesCategory;
   });
 
-  searchStatus.textContent = "Showing all projects.";
+  if (selectedSort === "az") {
+    updatedCards.sort(function (a, b) {
+      return a.dataset.title.localeCompare(b.dataset.title);
+    });
+  } else if (selectedSort === "za") {
+    updatedCards.sort(function (a, b) {
+      return b.dataset.title.localeCompare(a.dataset.title);
+    });
+  }
+
+  projectCards.forEach(function (card) {
+    card.style.display = "none";
+  });
+
+  updatedCards.forEach(function (card) {
+    card.style.display = "";
+    projectsGrid.appendChild(card);
+    visibleCount++;
+  });
+
+  if (query === "" && selectedCategory === "all" && selectedSort === "default") {
+    searchStatus.textContent = "Showing all projects.";
+  } else {
+    searchStatus.textContent = `Found ${visibleCount} project(s).`;
+  }
+
+  emptyState.style.display = visibleCount === 0 ? "block" : "none";
+}
+
+if (projectSearch && projectFilter && projectSort && projectsGrid) {
+  projectSearch.addEventListener("input", updateProjects);
+  projectFilter.addEventListener("change", updateProjects);
+  projectSort.addEventListener("change", updateProjects);
+
+  updateProjects();
 }
 
 // Contact form validation

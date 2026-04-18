@@ -303,10 +303,16 @@ body {
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid rgba(226, 232, 240, 0.2);
-  background: rgba(255, 255, 255, 0.03);
+  background: #0f172a;
   color: #e2e8f0;
   font-family: inherit;
 }
+
+.projects-controls select option {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
 
 .projects-controls input:focus {
   outline: none;
@@ -491,6 +497,10 @@ body.light-theme {
 body.light-theme .header {
   background: rgba(248, 250, 252, 0.95);
   border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+}
+body.light-theme .projects-controls select option {
+  background: #ffffff;
+  color: #0f172a;
 }
 
 body.light-theme .logo,

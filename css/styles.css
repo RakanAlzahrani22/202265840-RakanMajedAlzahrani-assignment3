@@ -246,16 +246,42 @@ body {
   font-family: inherit;
 }
 
+
+.projects-controls select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(226, 232, 240, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  color: #e2e8f0;
+  font-family: inherit;
+}
+
 .projects-controls input:focus {
   outline: none;
   border-color: #38bdf8;
 }
+
+
+.projects-controls select:focus {
+  outline: none;
+  border-color: #38bdf8;
+}
+
+
 
 .search-status {
   color: #94a3b8;
   font-size: 0.95rem;
   min-height: 1.2rem;
 }
+
+
+.controls-help {
+  color: #94a3b8;
+  font-size: 0.92rem;
+  margin-top: 4px;
+}
+
 
 .empty-state {
   margin-top: 18px;
@@ -433,6 +459,7 @@ body.light-theme .intro,
 body.light-theme .section-subtitle,
 body.light-theme .project-content p,
 body.light-theme .search-status,
+body.light-theme .controls-help,
 body.light-theme .empty-state,
 body.light-theme .footer {
   color: #475569;
@@ -441,6 +468,8 @@ body.light-theme .footer {
 body.light-theme .project-card,
 body.light-theme .contact-form input,
 body.light-theme .contact-form textarea,
+body.light-theme .projects-controls input,
+body.light-theme .projects-controls select,
 body.light-theme .theme-toggle {
   background: #ffffff;
   border: 1px solid rgba(15, 23, 42, 0.12);

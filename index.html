@@ -37,7 +37,21 @@
             I’m a computer science student interested in building clean and simple websites.
             Right now I’m learning HTML, CSS, and JavaScript, and this portfolio is part of my Assignment 1.
           </p>
-
+              <div class="visitor-box">
+                <label for="visitorName">Personalize this page</label>
+                <input
+                  type="text"
+                  id="visitorName"
+                  placeholder="Enter your name"
+                />
+                <div class="visitor-actions">
+                  <button id="saveNameBtn" class="btn primary" type="button">Save Name</button>
+                  <button id="clearNameBtn" class="btn outline" type="button">Clear</button>
+                </div>
+                <p id="visitorGreeting" class="visitor-greeting">
+                  Enter your name to personalize the greeting.
+                </p>
+              </div>
           <div class="about-buttons">
             <a class="btn primary" href="#projects">See my projects</a>
             <a class="btn outline" href="#contact">Contact me</a>

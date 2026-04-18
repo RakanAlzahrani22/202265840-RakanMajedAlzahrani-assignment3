@@ -23,6 +23,45 @@ if (themeToggle) {
 }
 
 
+// Visitor name personalization
+const visitorNameInput = document.getElementById("visitorName");
+const saveNameBtn = document.getElementById("saveNameBtn");
+const clearNameBtn = document.getElementById("clearNameBtn");
+const visitorGreeting = document.getElementById("visitorGreeting");
+
+const savedVisitorName = localStorage.getItem("visitorName");
+
+if (savedVisitorName && visitorGreeting) {
+  visitorGreeting.textContent = `Welcome back, ${savedVisitorName}!`;
+}
+
+if (saveNameBtn && visitorNameInput && visitorGreeting) {
+  saveNameBtn.addEventListener("click", function () {
+    const name = visitorNameInput.value.trim();
+
+    if (name === "") {
+      visitorGreeting.textContent = "Please enter your name first.";
+      return;
+    }
+
+    localStorage.setItem("visitorName", name);
+    visitorGreeting.textContent = `Welcome back, ${name}!`;
+    visitorNameInput.value = "";
+  });
+}
+
+if (clearNameBtn && visitorGreeting) {
+  clearNameBtn.addEventListener("click", function () {
+    localStorage.removeItem("visitorName");
+    visitorGreeting.textContent = "Enter your name to personalize the greeting.";
+    if (visitorNameInput) {
+      visitorNameInput.value = "";
+    }
+  });
+}
+
+
+
 
 // GitHub repositories loader
 const loadReposBtn = document.getElementById("loadReposBtn");
